@@ -1,0 +1,41 @@
+pipeline {
+    agent { label 'globo_extra_slave' }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GO = '$(curl -v -kL --silent https://www.gocd.org/releases/ --stderr - | grep d_active | cut -d ">" -f 2 | cut -d " " -f 1)'
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+
+    }
+    
+    stages {
+        stage('Clone'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "echo ${VERSAO_GO}"
+                sh "echo ${VERSAO_GIT}"
+                sh "cd ${WORKSPACE}/docker/gocd_server"
+                sh "docker version"
+                sh "docker build -t renatoadsumus/gocd_server:${VERSAO_GO}_${VERSAO_GIT} $WORKSPACE/docker/gocd_server/"
+            }
+        }
+        stage('Copy'){
+            steps{
+                sh "docker tag renatoadsumus/gocd_server:${VERSAO_GO}_${VERSAO_GIT} renatoadsumus/gocd_server:latest"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+                sh "docker push renatoadsumus/gocd_server:${VERSAO_GO}_${VERSAO_GIT}"
+                sh "docker push renatoadsumus/gocd_server:latest"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

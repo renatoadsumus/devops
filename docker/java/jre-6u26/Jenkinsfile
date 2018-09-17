@@ -1,0 +1,38 @@
+pipeline {
+    agent { label 'globo_extra_slave' }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+
+    }
+    
+    stages {
+        stage('Clone'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "echo ${VERSAO_GIT}"
+                sh "docker build -t renatoadsumus/java_6u26:${VERSAO_GIT} $WORKSPACE/docker/java/jre-6u26 || (docker image prune -f && exit 1)"
+            }
+        }
+        stage('Copy'){
+            steps{
+				sh "docker tag renatoadsumus/java_6u26:${VERSAO_GIT} renatoadsumus/java_6u26"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+                sh "docker push renatoadsumus/java_6u26:${VERSAO_GIT}"
+				sh "docker push renatoadsumus/java_6u26"
+				sh "chown -R jenkins. ."
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

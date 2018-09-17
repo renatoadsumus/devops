@@ -1,0 +1,44 @@
+pipeline {
+    agent { label 'globo_extra_slave' }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GO = '$(curl -v -kL --silent https://www.gocd.org/releases/ --stderr - | grep d_active | cut -d ">" -f 2 | cut -d " " -f 1)'
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+
+    }
+    
+    stages {
+        stage('Clone'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'
+				checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[cancelProcessOnExternalsFail: true, credentialsId: 'e97eb477-7c2c-42f5-abf8-8cbf7486a874', depthOption: 'infinity', ignoreExternalsOption: true, local: 'chaves', remote: 'http://infosvn.ogmaster.local/svn/EquipeQA/chaves_ssh_containers']], quietOperation: true, workspaceUpdater: [$class: 'UpdateUpdater']])
+            }
+        }
+        stage('Build') {
+            steps {
+				sh "cp ${WORKSPACE}/chaves/servidores/* ${WORKSPACE}/docker/gocd_agent/"
+				sh "cp ${WORKSPACE}/chaves/git/* ${WORKSPACE}/docker/gocd_agent/"
+                sh "echo ${VERSAO_GO}"
+                sh "echo ${VERSAO_GIT}"
+                sh "cd ${WORKSPACE}/docker/gocd_agent"
+                sh "docker version"
+                sh "docker build -t renatoadsumus/gocd_agent:${VERSAO_GO}_${VERSAO_GIT} $WORKSPACE/docker/gocd_agent/"
+            }
+        }
+        stage('Copy'){
+            steps{
+                sh "docker tag renatoadsumus/gocd_agent:${VERSAO_GO}_${VERSAO_GIT} renatoadsumus/gocd_agent:latest"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+                sh "docker push renatoadsumus/gocd_agent:${VERSAO_GO}_${VERSAO_GIT}"
+                sh "docker push renatoadsumus/gocd_agent:latest"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

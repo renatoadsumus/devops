@@ -1,0 +1,12 @@
+<plugin name='mail-service' version='1.1.1' grailsVersion='2.3 &gt; *'>
+  <author>Classificados do Rio - INFOGLOBO</author>
+  <authorEmail>celulaclassificados@infoglobo.com.br</authorEmail>
+  <title>Mail Service Plugin</title>
+  <documentation>http://grails.org/plugin/mail-service</documentation>
+  <type>MailServiceGrailsPlugin</type>
+  <resources>
+    <resource>br.com.infoglobo.classificados.servicos.mail.ClassificadosMailService</resource>
+    <resource>br.com.infoglobo.classificados.servicos.mail.MecanismoEnvioParaDiscoService</resource>
+    <resource>br.com.infoglobo.classificados.servicos.mail.MecanismoEnvioService</resource>
+  </resources>
+</plugin>

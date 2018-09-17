@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+
+	<jsp-version>2.0</jsp-version>
+
+	<short-name>infoglobo</short-name>
+
+	<display-name>infoglobo</display-name>
+
+	<uri>http://www.infoglobo.com.br/taglib/infogloboEngine/util</uri>
+	
+	<function>
+		<description><![CDATA[Carrega as secoes filhas do uniqueName passado, menos os blogs]]></description>
+		<display-name>getSecoesPublicacao</display-name>
+		<name>getSecoesPublicacao</name>
+		<function-class>br.com.infoglobo.util.EscenicUtil</function-class>
+		<function-signature>java.util.List getSecoesPublicacao(java.lang.String, java.lang.String)</function-signature>
+	</function>	
+</taglib>

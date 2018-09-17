@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+
+	<jsp-version>2.0</jsp-version>
+
+	<short-name>infoglobo</short-name>
+
+	<display-name>infoglobo</display-name>
+
+	<uri>http://www.infoglobo.com.br/taglib/blog/util</uri>
+
+	<tag>
+		<name>captcha</name>
+		<tagclass>br.com.infoglobo.taglib.BlogUtilTaglib</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Define informações sobre o captcha para login na ferramenta de blog</info>
+		<variable>
+			<description>URL da servlet de geração do captcha</description>
+			<name-given>path</name-given>
+			<variable-class>java.lang.String</variable-class>
+		</variable>
+		<variable>
+			<description>Define se será ou não usado o captcha</description>
+			<name-given>useCaptcha</name-given>
+			<variable-class>java.lang.Boolean</variable-class>
+		</variable>
+	</tag>	
+</taglib>

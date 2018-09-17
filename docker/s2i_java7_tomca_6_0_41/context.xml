@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<Context>
+<!-- Default set of monitored resources -->
+<WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+<Resource
+      auth="Container"
+      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      name="jdbc/juridico"
+      password="ERYC84e1LyjasS2bxmZk"
+      type="javax.sql.DataSource"
+      url="jdbc:sqlserver://172.17.37.202;databaseName=DEV_INFG_Gestor"
+      username="DEV_INFG_Gestor"
+      validationQuery="SELECT 1"
+      maxWait="10000"
+      removeAbandoned="true" />
+
+<ResourceLink name="jdbc/juridico"
+             global="jdbc/juridico"
+              type="javax.sql.DataSource" />
+</Context>

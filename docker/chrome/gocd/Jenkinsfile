@@ -1,0 +1,54 @@
+pipeline {
+    agent { label 'master' }
+
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+        MVN_OPTS = '-Dtest=_AgrupamentoDeSuiteDeslogado -PSTGLinux'
+        VERSAO_CHROME = sh (script: '(docker run --rm imagem_chrome_gocd:temp google-chrome --version | grep -o -E [0-9]+ | head -n1)', returnStdout: true).trim()
+        VERSAO_CHROMEDRIVE='$(grep CHROMEDRIVER_VERSION docker/chrome/Dockerfile | grep -o -E [0-9][0-9] | head -n1)'
+    }
+    stages {
+        stage('GIT CLONE'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'                   
+            }
+        }
+        stage('DOCKER BUILD') {
+            steps {
+                sh "docker version"
+
+                echo "### COMANDO DOCKER BUILD ###"
+                sh "docker build -t imagem_chrome_gocd:temp ${WORKSPACE}/docker/chrome/gocd/"
+
+                echo "### PERMISSAO PARA TFSSERVICE ###"
+                sh "sudo chown -R go.go ${WORKSPACE}/docker/chrome/gocd/"
+            }
+        }
+        stage('DOCKER TAG E PUSH'){
+            steps{
+
+                echo "### INCLUINDO TAG NO NOME DA IMAGEM ###"
+                sh "docker tag imagem_chrome_gocd:temp renatoadsumus/chrome_gocd:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_$VERSAO_GIT"
+                sh "docker tag imagem_chrome_gocd:temp renatoadsumus/chrome_gocd:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_latest"
+
+                echo "### LOGIN DOCKERHUB ###"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+
+                echo "### EXECUTANDO PUSH DA IMAGEM GERADA ###"
+                sh "docker push renatoadsumus/chrome_gocd:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_$VERSAO_GIT"
+                sh "docker push renatoadsumus/chrome_gocd:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_latest"
+
+                echo "### VOLTANDO PERMISSAO PARA JENKINS ###"
+                sh "sudo chown -R jenkins. ${WORKSPACE}/docker/chrome/gocd/"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

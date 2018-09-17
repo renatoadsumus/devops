@@ -1,0 +1,73 @@
+pipeline {
+    agent { label 'globo_extra_slave' }
+    parameters {
+        choice(
+            choices: '4.5.2',
+            description: '',
+            name: 'VERSAO')
+    }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+        VERSAO_CHROME = '$(docker run --rm imagem_chrome:temp google-chrome --version | grep -o -E '[0-9]+' | head -n1)'
+        VERSAO_CHROMEDRIVE ='$(grep CHROMEDRIVER_VERSION docker/chrome/Dockerfile | grep -o -E [0-9][0-9] | head -n1)'
+        MVN_OPTS = '-Dtest=_AgrupamentoDeSuiteDeslogado -PSTGLinux'
+    }
+    stages {
+        stage('GIT CLONE'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'                   
+            }
+            stage('GIT CLONE TESTE'){
+            steps{
+                git branch: 'fa6f1336948ebc2229c120aea08e1b0c0fd47d3a',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/escenic-oglobo-testes-funcionais-web.git'                   
+            }
+        }
+        stage('DOCKER BUILD') {
+            steps {
+                sh "docker version"
+
+                echo "### COMANDO DOCKER BUILD ###"
+                sh "docker build -t imagem_chrome:temp ${WORKSPACE}/docker/chrome/"
+            }
+        }
+        stage('DOCKER RUN') {
+            steps{
+                echo "### PERMISSAO PARA TFSSERVICE ###"
+                sh "sudo chown -R tfsservice.suporte ${WORKSPACE}/docker/soapui/${VERSAO}"
+
+                echo "### EXPORT NA VARIAVEL MVN_OPTS"
+                sh "export MVN_OPTS='-Dtest=_AgrupamentoDeSuiteDeslogado -PSTGLinux'"
+
+                echo "### COMANDO DOCKER RUN ###"
+                //sh "docker run --name $JOB_NAME --rm -v $WORKSPACE/:/codigo_teste_com_selenium_webdriver -v /opt/maven/repository:/home/jenkins/.m2/repository -e 'MVN_OPTS=$MVN_OPTS' imagem_chrome:temp"
+            }
+        }
+        stage('DOCKER TAG E PUSH'){
+            steps{
+                echo "### INCLUINDO TAG NO NOME DA IMAGEM ###"
+                //sh "docker tag imagem_chrome:temp renatoadsumus/chrome:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_$VERSAO_GIT"
+                //sh "docker tag imagem_chrome:temp renatoadsumus/chrome:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_latest"
+
+                echo "### LOGIN DOCKERHUB ###"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+
+                echo "### EXECUTANDO PUSH DA IMAGEM GERADA ###"
+                //sh "docker push renatoadsumus/chrome:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_$VERSAO_GIT"
+                //sh "docker push renatoadsumus/chrome:${VERSAO_CHROME}-${VERSAO_CHROMEDRIVE}_latest"
+
+                echo "### VOLTANDO PERMISSAO PARA JENKINS ###"
+                sh "sudo chown -R jenkins. ${WORKSPACE}/docker/soapui/${VERSAO}"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

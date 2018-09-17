@@ -1,0 +1,5 @@
+Host gitinfoglobo
+  HostName git.com
+  User git
+  IdentityFile /opt/chaves_git/git
+  IdentitiesOnly yes

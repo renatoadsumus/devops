@@ -1,0 +1,34 @@
+pipeline {
+	//pipeline precisa ser executado em slave com docker
+    agent {label 'globo_extra'}
+	
+	parameters {
+		//versoes disponiveis do python sao 27 e 35
+		choice(name: 'VERSAO', choices: '27\n35', description: '')
+	}
+	
+    stages {
+        stage('build_imagem_teste') {
+            steps {
+				//faz o build da imagem de teste
+                echo 'buildar a imagem de teste'
+				
+				//sh "cd ${env.WORKSPACE}/docker/python && VERSAO_GIT=\$(echo ${ENV.GIT_COMMIT} | awk '{print substr(\$0, 1, 10)}') && docker build -t renatoadsumus/python:${env.VERSAO}_${env.VERSAO_GIT} . || (docker image prune -f && exit 1)"
+            }
+        }
+		
+		stage('testar_imagem') {
+			steps {
+				echo 'testar a imagem'
+				
+				
+			}
+		}
+		
+		stage('deploy_imagem') {
+			steps {
+				echo 'deploy da imagem'
+			}
+		}
+    }
+}

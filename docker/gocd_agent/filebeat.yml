@@ -1,0 +1,7 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /opt/jenkins/jobs/processos-metricas.log
+  document_type: processos_automatizados
+output.logstash:
+  hosts: ["infologst01:5003"]

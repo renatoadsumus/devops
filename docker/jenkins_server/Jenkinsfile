@@ -1,0 +1,52 @@
+pipeline {
+    agent { label 'globo_extra_slave' }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+		VERSAO_JENKINS = '$(curl -sL https://jenkins.io/changelog-stable/rss.xml | grep -oPm1 "(?<=<title>)[^<]+" | cut -c9-)'
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+
+    }
+    
+    stages {
+        stage('Clone'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'
+				checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[cancelProcessOnExternalsFail: true, credentialsId: 'e97eb477-7c2c-42f5-abf8-8cbf7486a874', depthOption: 'infinity', ignoreExternalsOption: true, local: 'chaves', remote: 'http://infosvn.ogmaster.local/svn/EquipeQA/chaves_ssh_containers']], quietOperation: true, workspaceUpdater: [$class: 'UpdateUpdater']])
+            }
+        }
+		stage('Build Temp') {
+            steps {
+                sh "docker version"       
+
+                echo "### PERMISSAO PARA TFSSERVICE ###"
+                sh "sudo chown -R tfsservice.suporte ${WORKSPACE}/docker/jenkins_server/"
+            }
+        }
+        stage('Build') {
+            steps {
+				sh "sudo cp ${WORKSPACE}/chaves/servidores/* ${WORKSPACE}/docker/jenkins_server/"
+				sh "sudo cp ${WORKSPACE}/chaves/git/* ${WORKSPACE}/docker/jenkins_server/"
+                sh "echo ${VERSAO_JENKINS}"
+                sh "echo ${VERSAO_GIT}"
+                sh "cd ${WORKSPACE}/docker/jenkins_server"
+                sh "docker version"
+                sh "docker build -t renatoadsumus/jenkins_server:${VERSAO_JENKINS}_${VERSAO_GIT} $WORKSPACE/docker/jenkins_server/"
+            }
+        }
+        stage('Copy'){
+            steps{
+                sh "docker tag renatoadsumus/jenkins_server:${VERSAO_JENKINS}_${VERSAO_GIT} renatoadsumus/jenkins_server:latest"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+                sh "docker push renatoadsumus/jenkins_server:${VERSAO_JENKINS}_${VERSAO_GIT}"
+                sh "docker push renatoadsumus/jenkins_server:latest"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

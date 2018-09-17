@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns2="http://infoglobo/corporativo/erros/ErroProvedor" xmlns:ns1="http://infoglobo/corporativo/erros/ErroInvokeProvedor" xmlns:ns4="http://infoglobo/corporativo/erros/ErroValidacaoResponse" xmlns:ns3="http://infoglobo/corporativo/erros/ErroValidacaoRequest" xmlns:tns="http://infoglobo/schema/Funcionario" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://infoglobo/corporativo/erros/ErroInesperado" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://infoglobo/schema/Funcionario">
+    <wsdl:types>
+        <xsd:schema xmlns:tns="http://infoglobo/corporativo/erros/ErroProvedor" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://infoglobo/corporativo/erros/ErroProvedor" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:complexType name="ErroProvedor">
+                <xsd:sequence>
+                    <xsd:element name="motivo" type="xsd:string"/>
+                    <xsd:element name="origem" type="xsd:string"/>
+                    <xsd:element name="detalhe" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ErroProvedor" type="tns:ErroProvedor"/>
+        </xsd:schema>
+        <xsd:schema xmlns:tns="http://infoglobo/corporativo/erros/ErroValidacaoResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://infoglobo/corporativo/erros/ErroValidacaoResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:complexType name="ErroValidacaoResponse">
+                <xsd:sequence>
+                    <xsd:element name="motivo" type="xsd:string"/>
+                    <xsd:element name="origem" type="xsd:string"/>
+                    <xsd:element name="detalhe" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ErroValidacaoResponse" type="tns:ErroValidacaoResponse"/>
+        </xsd:schema>
+        <xsd:schema xmlns:tns="http://infoglobo/corporativo/erros/ErroInvokeProvedor" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://infoglobo/corporativo/erros/ErroInvokeProvedor" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:complexType name="ErroInvokeProvedor">
+                <xsd:sequence>
+                    <xsd:element name="motivo" type="xsd:string"/>
+                    <xsd:element name="origem" type="xsd:string"/>
+                    <xsd:element name="detalhe" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ErroInvokeProvedor" type="tns:ErroInvokeProvedor"/>
+        </xsd:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://infoglobo/schema/Funcionario" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="notificarAtualizadoRequest">
+                <xs:sequence>
+                    <xs:element ref="tns:Header"/>
+                    <xs:element name="Body">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Matricula" type="xs:string"/>
+                                <xs:element name="DataAdmissao" type="xs:date" minOccurs="0"/>
+                                <xs:element name="DataDemissao" type="xs:date" minOccurs="0"/>
+                                <xs:element name="Nome" type="xs:string" minOccurs="0"/>
+                                <xs:element name="Cargo" type="xs:string" minOccurs="0"/>
+                                <xs:element name="SalarioFixo" type="xs:string" minOccurs="0"/>
+                                <xs:element name="CodigoCentroCusto" type="xs:string" minOccurs="0"/>
+                                <xs:element name="DescricaoCentroCusto" type="xs:string" minOccurs="0"/>
+                                <xs:element name="ComissaoAlvo" type="xs:string" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="notificarAtualizadoResponse">
+                <xs:sequence>
+                    <xs:element ref="tns:Header"/>
+                    <xs:element name="Body">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Status" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="notificarNovoRequest">
+                <xs:sequence>
+                    <xs:element ref="tns:Header"/>
+                    <xs:element name="Body">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Matricula" type="xs:string"/>
+                                <xs:element name="DataAdmissao" type="xs:date"/>
+                                <xs:element name="DataDemissao" type="xs:date" minOccurs="0"/>
+                                <xs:element name="Nome" type="xs:string"/>
+                                <xs:element name="Cargo" type="xs:string"/>
+                                <xs:element name="SalarioFixo" type="xs:string"/>
+                                <xs:element name="CodigoCentroCusto" type="xs:string"/>
+                                <xs:element name="DescricaoCentroCusto" type="xs:string"/>
+                                <xs:element name="ComissaoAlvo" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="notificarNovoResponse">
+                <xs:sequence>
+                    <xs:element ref="tns:Header"/>
+                    <xs:element name="Body">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Status" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="notificarAtualizadoRequest" type="tns:notificarAtualizadoRequest"/>
+            <xs:element name="notificarAtualizadoResponse" type="tns:notificarAtualizadoResponse"/>
+            <xs:element name="notificarNovoRequest" type="tns:notificarNovoRequest"/>
+            <xs:element name="notificarNovoResponse" type="tns:notificarNovoResponse"/>
+            <xs:element name="Header">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestID" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Identificador unico da mensagem. Cada consumidor e reponsavel pelo incremento do valor a cada envio</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Consumidor" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Identificador unico do consumidor</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xsd:schema xmlns:tns="http://infoglobo/corporativo/erros/ErroInesperado" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://infoglobo/corporativo/erros/ErroInesperado" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:complexType name="ErroInesperado">
+                <xsd:sequence>
+                    <xsd:element name="motivo" type="xsd:string"/>
+                    <xsd:element name="origem" type="xsd:string"/>
+                    <xsd:element name="detalhe" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ErroInesperado" type="tns:ErroInesperado"/>
+        </xsd:schema>
+        <xsd:schema xmlns:tns="http://infoglobo/corporativo/erros/ErroValidacaoRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://infoglobo/corporativo/erros/ErroValidacaoRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:complexType name="ErroValidacaoRequest">
+                <xsd:sequence>
+                    <xsd:element name="motivo" type="xsd:string"/>
+                    <xsd:element name="origem" type="xsd:string"/>
+                    <xsd:element name="detalhe" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ErroValidacaoRequest" type="tns:ErroValidacaoRequest"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="Funcionario">
+        <wsdl:port name="FuncionarioPortTypeEndpoint1" binding="tns:FuncionarioPortTypeEndpoint1Binding">
+            <soap:address location="http://localhost:7064/Funcionario"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="FuncionarioPortType">
+        <wsdl:operation name="notificarAtualizado">
+            <wsdl:input message="tns:notificarAtualizadoRequest"/>
+            <wsdl:output message="tns:notificarAtualizadoResponse"/>
+            <wsdl:fault name="ErroInesperado" message="tns:ErroInesperado"/>
+            <wsdl:fault name="ErroInvokeProvedor" message="tns:ErroInvokeProvedor"/>
+            <wsdl:fault name="ErroProvedor" message="tns:ErroProvedor"/>
+            <wsdl:fault name="ErroValidacaoRequest" message="tns:ErroValidacaoRequest"/>
+            <wsdl:fault name="ErroValidacaoResponse" message="tns:ErroValidacaoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="notificarNovo">
+            <wsdl:input message="tns:notificarNovoRequest"/>
+            <wsdl:output message="tns:notificarNovoResponse"/>
+            <wsdl:fault name="ErroInesperado" message="tns:ErroInesperado"/>
+            <wsdl:fault name="ErroInvokeProvedor" message="tns:ErroInvokeProvedor"/>
+            <wsdl:fault name="ErroProvedor" message="tns:ErroProvedor"/>
+            <wsdl:fault name="ErroValidacaoRequest" message="tns:ErroValidacaoRequest"/>
+            <wsdl:fault name="ErroValidacaoResponse" message="tns:ErroValidacaoResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FuncionarioPortTypeEndpoint1Binding" type="tns:FuncionarioPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="notificarAtualizado">
+            <soap:operation style="document" soapAction="/notificarAtualizado"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="notificarAtualizadoRequest"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="notificarAtualizadoResponse"/>
+            </wsdl:output>
+            <wsdl:fault name="ErroInesperado">
+                <soap:fault use="literal" name="ErroInesperado"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroInvokeProvedor">
+                <soap:fault use="literal" name="ErroInvokeProvedor"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroProvedor">
+                <soap:fault use="literal" name="ErroProvedor"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroValidacaoRequest">
+                <soap:fault use="literal" name="ErroValidacaoRequest"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroValidacaoResponse">
+                <soap:fault use="literal" name="ErroValidacaoResponse"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="notificarNovo">
+            <soap:operation style="document" soapAction="/notificarNovo"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="notificarNovoRequest"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="notificarNovoResponse"/>
+            </wsdl:output>
+            <wsdl:fault name="ErroInesperado">
+                <soap:fault use="literal" name="ErroInesperado"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroInvokeProvedor">
+                <soap:fault use="literal" name="ErroInvokeProvedor"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroProvedor">
+                <soap:fault use="literal" name="ErroProvedor"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroValidacaoRequest">
+                <soap:fault use="literal" name="ErroValidacaoRequest"/>
+            </wsdl:fault>
+            <wsdl:fault name="ErroValidacaoResponse">
+                <soap:fault use="literal" name="ErroValidacaoResponse"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="notificarAtualizadoRequest">
+        <wsdl:part name="notificarAtualizadoRequest" element="tns:notificarAtualizadoRequest"/>
+    </wsdl:message>
+    <wsdl:message name="notificarAtualizadoResponse">
+        <wsdl:part name="notificarAtualizadoResponse" element="tns:notificarAtualizadoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ErroInesperado">
+        <wsdl:documentation>Ocorreu um erro inesperado (diferente dos erros acima) que foi tratado de forma genérica pelo serviço.</wsdl:documentation>
+        <wsdl:part name="ErroInesperado" element="ns0:ErroInesperado"/>
+    </wsdl:message>
+    <wsdl:message name="ErroInvokeProvedor">
+        <wsdl:documentation>Ocorreu algum erro ao invocar um dos provedores.</wsdl:documentation>
+        <wsdl:part name="ErroInvokeProvedor" element="ns1:ErroInvokeProvedor"/>
+    </wsdl:message>
+    <wsdl:message name="ErroProvedor">
+        <wsdl:documentation>Um dos Provedores retornou uma resposta que não indica sucesso. </wsdl:documentation>
+        <wsdl:part name="ErroProvedor" element="ns2:ErroProvedor"/>
+    </wsdl:message>
+    <wsdl:message name="ErroValidacaoRequest">
+        <wsdl:documentation>A mensagem de requisição recebida pelo serviço foi identificada como sendo para o serviço em questão, mas possui um formato inválido que viola as regras definidas no XML Schema (XSD).</wsdl:documentation>
+        <wsdl:part name="ErroValidacaoRequest" element="ns3:ErroValidacaoRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ErroValidacaoResponse">
+        <wsdl:documentation>A mensagem de resposta retornada por um dos provedores não está de acordo com as regras definidas no XML Schema (XSD).</wsdl:documentation>
+        <wsdl:part name="ErroValidacaoResponse" element="ns4:ErroValidacaoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="notificarNovoRequest">
+        <wsdl:part name="notificarNovoRequest" element="tns:notificarNovoRequest"/>
+    </wsdl:message>
+    <wsdl:message name="notificarNovoResponse">
+        <wsdl:part name="notificarNovoResponse" element="tns:notificarNovoResponse"/>
+    </wsdl:message>
+</wsdl:definitions>

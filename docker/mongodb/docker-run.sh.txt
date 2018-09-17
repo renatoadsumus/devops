@@ -1,0 +1,4 @@
+docker run -d --rm --name mongo -p 27017:27017 -v ./dados-mongo:/data/db mongodb
+
+# Para entrar no container:
+# docker exec -it mongo /bin/bash

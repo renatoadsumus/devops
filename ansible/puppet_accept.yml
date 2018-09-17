@@ -1,0 +1,10 @@
+---
+- hosts: server		
+  tasks: 
+    - name: puppet cliente vai fazer uma solicitação de assinatura de certificado (CSR) para o Puppet Server (CA)
+      command: puppet cert sign puppetclient-01.devopslab.com.br
+    
+- hosts: server, agent
+  tasks:
+    - name: configurando o agent para encontrar o puppet server
+      command: puppet agent -t

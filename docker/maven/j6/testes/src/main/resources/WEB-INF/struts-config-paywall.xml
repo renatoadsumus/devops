@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ * File           : $Header: //depot/escenic/widget-framework/branches/1.1/widget-framework-common/src/main/webapp/WEB-INF/struts-config-comment.xml#1 $
+ * Last edited by : $Author: dari $ $Date: 2010/05/31 $
+ * Version        : $Revision: #1 $
+ *
+ * Copyright (C) 2009 Escenic AS.
+ * All Rights Reserved.  No use, copying or distribution of this
+ * work may be made except in accordance with a valid license
+ * agreement from Escenic AS.  This notice must be included on
+ * all copies, modifications and derivatives of this work.
+-->
+
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+	<form-beans>
+		<form-bean name="controlaAcessoForm" type="br.com.infoglobo.paywall.ControlaAcessoForm"/>
+	</form-beans>
+
+	<action-mappings>
+
+		 <action path="/controla-acesso/configuracao"
+	            type="br.com.infoglobo.paywall.ControlaAcessoAction"
+	            name="controlaAcessoForm"
+	            input="/template/common.jsp"
+	            validate="false"
+	            scope="request">
+	      <forward name="target" path="/"/>
+	    </action>
+           
+	</action-mappings>
+
+</struts-config>

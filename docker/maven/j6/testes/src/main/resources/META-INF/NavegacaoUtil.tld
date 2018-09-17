@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+
+	<jsp-version>2.0</jsp-version>
+
+	<short-name>navegacao-util</short-name>
+	<display-name>navegacao-util</display-name>
+
+	<uri>http://www.infoglobo.com.br/taglib/navegacao/util</uri>
+
+	<tag>
+		<name>defineNavegacao</name>
+		<tag-class>br.com.infoglobo.taglib.DefineNavegacao</tag-class>
+	</tag>	
+</taglib>

@@ -1,0 +1,70 @@
+pipeline {
+    agent { label 'master' }
+    parameters {
+        choice(
+            choices: 'j6\nj7\nj8',
+            description: '',
+            name: 'VERSAO_JAVA')
+    }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+
+    }
+    stages {
+        stage('GIT CLONE'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'                   
+            }
+        }
+        stage('DOCKER BUILD') {
+            steps {
+                sh "docker version"
+                echo "### COMANDO DOCKER BUILD ###"
+                sh "docker build -t renatoadsumus/maven:${VERSAO_JAVA}_${VERSAO_GIT}_go $WORKSPACE/docker/maven/${VERSAO_JAVA}"
+            }
+        }
+        stage('DOCKER RUN') {
+            steps{
+                echo "### PERMISSAO PARA TFSSERVICE ###"
+                sh "sudo chown -R go.go $WORKSPACE/docker/maven/${VERSAO_JAVA}"
+                echo "### COMANDO DOCKER RUN MVN CLEAN PACKAGE ###"
+                sh "docker run --rm -v $WORKSPACE/docker/maven/${VERSAO_JAVA}/testes:/codigo_da_aplicacao -v /opt/repositories/maven:/home/tfsservice/.m2/repository/ \
+                    renatoadsumus/maven:${VERSAO_JAVA}_${VERSAO_GIT}_go mvn clean package"
+                echo "### COMANDO DOCKER RUN MVN CLEAN DEPLOY ###"
+                sh "docker run --rm -v $WORKSPACE/docker/maven/${VERSAO_JAVA}/testes:/codigo_da_aplicacao -v /opt/repositories/maven:/home/tfsservice/.m2/repository/ \
+                    renatoadsumus/maven:${VERSAO_JAVA}_${VERSAO_GIT}_go mvn clean deploy"
+            }
+        }
+        stage('DOCKER RUN J8'){
+            when{
+                expression { params.VERSAO_JAVA == 'j8' }
+            }
+            steps{
+                echo "### EXECUTANDO DOCKER RUN PARA JAVA 8 ###"
+                sh "docker run --rm -v $WORKSPACE/docker/maven/${VERSAO_JAVA}/testes:/codigo_da_aplicacao -v /opt/repositories/maven:/home/tfsservice/.m2/repository/ \
+                    renatoadsumus/maven:${VERSAO_JAVA}_${VERSAO_GIT}_go mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test sonar:sonar"
+            }
+        }
+        stage('DOCKER TAG E PUSH'){
+            steps{
+                echo "### INCLUINDO TAG NO NOME DA IMAGEM ###"
+                sh "docker tag renatoadsumus/maven:${VERSAO_JAVA}_${VERSAO_GIT}_go renatoadsumus/maven:${VERSAO_JAVA}_latest_go"
+                echo "### LOGIN DOCKERHUB ###"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+                echo "### EXECUTANDO PUSH DA IMAGEM GERADA ###"
+                sh "docker push renatoadsumus/maven:${VERSAO_JAVA}_${VERSAO_GIT}_go"
+                sh "docker push renatoadsumus/maven:${VERSAO_JAVA}_latest_go"
+                echo "### VOLTANDO PERMISSAO PARA JENKINS ###"
+                sh "sudo chown -R jenkins. $WORKSPACE/docker/maven/${VERSAO_JAVA}"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

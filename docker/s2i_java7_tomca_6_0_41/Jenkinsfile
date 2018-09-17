@@ -1,0 +1,20 @@
+pipeline {
+    agent { label 'globo_extra_slave' }	
+	
+    
+    stages {      		
+
+		stage('gerar_imagem') { 
+			steps {							
+				sh "docker build -t renatoadsumus/s2i-java7-tomcat-6.0.41:latest docker/s2i_java7_tomca_6_0_41/"						
+			}			
+		}
+        
+    }
+	
+	post {
+		always {
+		cleanWs()
+		}
+	}
+ }

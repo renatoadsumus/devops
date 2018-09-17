@@ -1,0 +1,112 @@
+Nome Job
+SVN 
+Configuração
+
+Globo - Kogut - Testes Funcionais - Capa
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=CapaPRDSuite -PPRDLinux
+
+Globo - Kogut - Testes Funcionais - Erros
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=ErrosPRDSuite -PPRDLinux
+
+Globo - Kogut - Testes Funcionais - Fotogaleria
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=FotogaleriaPRDSuite -PPRDLinux
+
+Globo - Kogut - Testes Funcionais - Materia
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=MateriaPRDSuite -PPRDLinux
+
+Globo - Kogut - Testes Funcionais - Materia Com Comentario
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=MateriaComentarioPRDSuite -PPRDLinux
+
+Globo - Kogut - Testes Funcionais - Materia Widgets
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=MateriaWidgetPRDSuite -PPRDLinux
+
+Globo - Kogut - Testes Funcionais STG - Capa
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=CapaSTGSuite -PSTGLinux
+
+Globo - Kogut - Testes Funcionais STG - Erros
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=ErrosSTGSuite -PSTGLinux
+
+Globo - Kogut - Testes Funcionais STG - Fotogaleria
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=FotogaleriaSTGSuite -PSTGLinux
+
+Globo - Kogut - Testes Funcionais STG - Materia
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=MateriaSTGSuite -PSTGLinux
+
+Globo - Kogut - Testes Funcionais STG - Materia Com Comentario
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=MateriaComentarioSTGSuite -PSTGLinux
+
+Globo - Kogut - Testes Funcionais STG - Materia Widgets
+http://infosvn.ogmaster.local/svn/Kogut.TestesFuncionais/trunk
+-Dtest=MateriaWidgetSTGSuite -PSTGLinux
+
+Globo - Site - Testes Funcionais STG - Tempo Real de Futebol
+http://infosvn.ogmaster.local/svn/ECE5/InfoGlobo.OGlobo/branches/RedesenhoTestesFuncionais
+-Dtest=TempoRealSuite -PSTGLinux
+
+Globo - Ebooks - Testes Funcionais PRD - Capa Destaque
+http://infosvn.ogmaster.local/svn/ECE5/InfoGlobo.OGlobo/branches/EbooksTestesFuncionais/EbooksTestes
+-Dtest=CapaSuite -PPRDLinux
+
+Extra - Acervo - Testes Funcionais PRD
+http://infosvn.ogmaster.local/svn/ECE5/Infoglobo.AcervoExtra/TesteFuncional/trunk
+http://infosvn.ogmaster.local/svn/EquipeQA/scripts-deploy-automatizado/genericos
+-Dtest=ChromeRunnerPrdTest -PPRD
+
+Extra - XD - Testes Funcionais PRD
+http://infosvn.ogmaster.local/svn/ECE5/Infoglobo.XD/TestesFuncionais/trunk
+http://infosvn.ogmaster.local/svn/EquipeQA/scripts-deploy-automatizado/genericos
+-Dtest=TestesFuncionaisXisTestSuite -PPRD
+
+Extra - Acervo - Testes Regressivos
+http://infosvn.ogmaster.local/svn/ECE5/Infoglobo.AcervoExtra/TesteFuncional/trunk
+http://infosvn.ogmaster.local/svn/EquipeQA/scripts-deploy-automatizado/genericos
+-Dtest=ChromeRunnerStgTest -PSTG
+
+Extra - XD - Testes Regressivos
+http://infosvn.ogmaster.local/svn/ECE5/Infoglobo.XD/TestesFuncionais/trunk
+http://infosvn.ogmaster.local/svn/EquipeQA/scripts-deploy-automatizado/genericos
+-Dtest=TestesFuncionaisXisTestSuite -PSTG
+
+
+Globo-SuperBlogs-Testes-Unitarios
+git://infoglobo.git.globoi.com/superblogs/superblogs.git
+source /home/tfsservice/superblogs/bin/activate
+cd $WORKSPACE/superblogs
+mv settings_test.py settings.py
+cp /opt/superblogs_config/settings_db.py settings_db.py
+cp /opt/superblogs_config/settings_qualidade.py settings_qualidade.py
+cd ..
+coverage run --source='.' ./manage.py test
+coverage xml
+export PATH=/usr/lib64/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/tfsservice/bin:/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java
+/opt/sonar-runner-2.4/bin/sonar-runner -e
+
+
+Globo-Kogut-Testes-Unitarios
+git://infoglobo.git.globoi.com/site-kogut/site-kogut.git
+source /home/tfsservice/superblogs/bin/activate
+cd $WORKSPACE/kogut
+mv settings_test.py settings.py
+cp /opt/kogut_config/settings_db.py settings_db.py
+cp /opt/kogut_config/settings_qualidade.py settings_qualidade.py
+cd ..
+coverage erase
+coverage run --source='.' ./manage.py test
+coverage xml
+export PATH=/usr/lib64/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/tfsservice/bin:/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java
+/opt/sonar-runner-2.4/bin/sonar-runner
+
+
+Globo - Shakespeare - Commit Stage
+https://github.com/Infoglobo/shakespeare.git

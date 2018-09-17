@@ -1,0 +1,13 @@
+---
+- hosts: server
+  tasks:
+    - name: Removendo a pasta modules Puppet
+      file: path='/etc/puppetlabs/code/environments/production/modules' state=absent
+    - name: Instalando SVN Client
+      yum: name=svn state=latest
+    - name: Checkout modulos Puppet do SVN
+      subversion:
+        repo: http://infosvn.ogmaster.local/svn/EquipeQA/devops/puppet/
+        password: P@ssword
+        username: renato.fonseca
+        dest: /etc/puppetlabs/code/environments/production/modules

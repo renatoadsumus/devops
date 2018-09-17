@@ -1,0 +1,57 @@
+pipeline {
+    agent { label 'master' }
+    parameters {
+        choice(
+            choices: 'j8',
+            description: '',
+            name: 'VERSAO')
+    }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+
+    }
+    stages {
+        stage('GIT CLONE'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'                   
+            }
+        }
+        stage('DOCKER BUILD') {
+            steps {
+                //sh "docker version"
+                echo "### COMANDO DOCKER BUILD ###"
+                sh "docker build -t renatoadsumus/sonar-scanner:${VERSAO}_${VERSAO_GIT} ${WORKSPACE}/docker/sonar_scanner/${VERSAO}"
+            }
+        }
+        stage('DOCKER RUN') {
+            steps{
+                echo "### PERMISSAO PARA GO ###"
+                sh "sudo chown -R go.go ${WORKSPACE}/docker/sonar_scanner/${VERSAO}"
+                echo "### COMANDO DOCKER RUN ###"
+                sh "docker run --rm -v ${WORKSPACE}/docker/sonar_scanner/${VERSAO}/testes:/codigo_da_aplicacao renatoadsumus/sonar-scanner:${VERSAO}_${VERSAO_GIT} sonar-scanner"
+            }
+        }
+
+        stage('DOCKER TAG E PUSH'){
+            steps{
+                echo "### INCLUINDO TAG NO NOME DA IMAGEM ###"
+                sh "docker tag renatoadsumus/sonar-scanner:${VERSAO}_${VERSAO_GIT} renatoadsumus/sonar-scanner:${VERSAO}_latest"
+                echo "### LOGIN DOCKERHUB ###"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+                echo "### EXECUTANDO PUSH DA IMAGEM GERADA ###"
+                sh "docker push renatoadsumus/sonar-scanner:${VERSAO}_${VERSAO_GIT}"
+                sh "docker push renatoadsumus/sonar-scanner:${VERSAO}_latest"
+                echo "### VOLTANDO PERMISSAO PARA JENKINS ###"
+                sh "sudo chown -R jenkins. ${WORKSPACE}/docker/sonar_scanner/${VERSAO}"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

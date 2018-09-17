@@ -1,0 +1,68 @@
+pipeline {
+    agent { label 'master' }
+    parameters {
+        choice(
+            choices: 'j7',
+            description: '',
+            name: 'VERSAO')
+    }
+    environment {
+        USER_CREDENTIALS = credentials('e641eb29-97c7-4000-86a2-f2c35072a7cc')
+        VERSAO_GIT = '$(git rev-parse HEAD | cut -c 1-10)'
+        PASTA_PROJETO = 'testes_package'
+
+    }
+    stages {
+        stage('GIT CLONE'){
+            steps{
+                git branch: 'master',
+                    credentialsId: '095337cb-cf01-426b-a6fd-d6152e5b4932',
+                    url: 'https://github.com/Infoglobo/devops.git'                   
+            }
+        }
+        stage('DOCKER BUILD') {
+            steps {
+                sh "docker version"
+
+                echo "### COMANDO DOCKER BUILD ###"
+                sh "docker build -t renatoadsumus/grails:${VERSAO}_${VERSAO_GIT}_go ${WORKSPACE}/docker/grails/${VERSAO}"
+            }
+        }
+        stage('DOCKER RUN') {
+            steps{
+                echo "### PERMISSAO PARA TFSSERVICE ###"
+                sh "sudo chown -R go.go $WORKSPACE/docker/grails/${VERSAO}"
+
+                echo "### COMANDO DOCKER RUN ###"
+                sh "docker run --rm -v ${WORKSPACE}/docker/grails/${VERSAO}:/workspace_projeto -v /opt/repositories/grails/:/home/tfsservice/.grails -v /opt/repositories/maven/:/home/tfsservice/.m2 -e 'PASTA_PROJETO=$PASTA_PROJETO' renatoadsumus/grails:${VERSAO}_${VERSAO_GIT}_go /bin/bash -c 'cd $PASTA_PROJETO && grails clean && grails war --verbose'"
+
+                echo "### COMANDO DOCKER RUN ###"
+                sh "docker run --rm -v $PWD:/workspace_projeto -v /opt/repositories/grails/:/home/tfsservice/.grails -v /opt/repositories/maven/:/home/tfsservice/.m2 -e 'PASTA_PROJETO=$PASTA_PROJETO' renatoadsumus/grails:${VERSAO}_${VERSAO_GIT}_go /bin/bash -c 'cd $PASTA_PROJETO && grails clean && grails compile && grails maven-deploy'"
+
+                echo "### COMANDO DOCKER RUN"
+                sh "docker run --rm -v $PWD:/workspace_projeto -v /opt/repositories/grails/:/home/tfsservice/.grails -v /opt/repositories/maven/:/home/tfsservice/.m2 -e 'PASTA_PROJETO=$PASTA_PROJETO' renatoadsumus/grails:${VERSAO}_${VERSAO_GIT}_go /bin/bash -c 'cd $PASTA_PROJETO && grails -Dgrails.work.dir=target test-app --non-interactive --plain-output --stacktrace'"
+            }
+        }
+        stage('DOCKER TAG E PUSH'){
+            steps{
+                echo "### INCLUINDO TAG NO NOME DA IMAGEM ###"
+                sh "docker tag renatoadsumus/grails:${VERSAO}_${VERSAO_GIT}_go renatoadsumus/grails:${VERSAO}_latest_go"
+
+                echo "### LOGIN DOCKERHUB ###"
+                sh "docker login --username=${USER_CREDENTIALS_USR} --password=${USER_CREDENTIALS_PSW}"
+
+                echo "### EXECUTANDO PUSH DA IMAGEM GERADA ###"
+                sh "docker push renatoadsumus/grails:${VERSAO}_${VERSAO_GIT}_go"
+                sh "docker push renatoadsumus/grails:${VERSAO}_latest_go"
+
+                echo "### VOLTANDO PERMISSAO PARA JENKINS ###"
+                sh "sudo chown -R jenkins. $WORKSPACE/docker/grails/${VERSAO}"
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

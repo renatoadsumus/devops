@@ -1,0 +1,19 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'tomcat-centos7' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+echo "---> Installing application source..."
+#cp -Rf /tmp/src/. 	
+cp -Rf /tmp/src/. /opt/app-root/
+#cp -Rf /tmp/src/. /usr/share/tomcat6/webapps/
+echo "---> Executando o Maven Clean e Package..."
+mvn clean package
+echo "---> Fim do Maven Package..."
+cp /opt/app-root/target/*.war /usr/share/tomcat6/webapps/
+echo "---> Copiando WAR para /usr/share/tomcat6/webapps/ ..."
+

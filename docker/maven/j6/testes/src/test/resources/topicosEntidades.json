@@ -1,0 +1,16 @@
+{  
+   "palavrasChaves": [
+	    {
+	      "nome":"brasil",
+	      "categoria": "Lugar",
+	      "origem": "",
+	      "relevancia": "0.9"
+	    },
+	    {
+	      "nome":"politica",
+	      "categoria": "Assunto",
+	      "origem": "",
+	      "relevancia": "0.6"
+	    }
+    ]  
+}

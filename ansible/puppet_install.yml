@@ -1,0 +1,52 @@
+---
+- hosts: server, agent
+  tasks:
+    - name: Inserindo host do puppet server no arquivo de HOSTS
+      lineinfile:
+        path: /etc/hosts
+        line: '172.28.128.3 puppetserver-01.devopslab.com.br'
+    - name: Inserindo host do puppet agent no arquivo de HOSTS
+      lineinfile:
+        path: /etc/hosts
+        line: '172.28.128.4 puppetclient-01.devopslab.com.br'
+
+- hosts: server, agent
+  tasks:
+    - name: Instalacao repositorios do Puppet
+      yum: name=https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm state=present
+      environment:
+        https_proxy: http://tfsservice@infocgw.ogmaster.local:8080
+        http_proxy: http://tfsservice@infocgw.ogmaster.local:8080
+
+- hosts: server
+  tasks: 
+    - name: instalando o puppetserver
+      yum: name=puppetserver state=latest
+    - name: iniciando o servico do puppetserver
+      service: 
+        name: puppetserver
+        state: started
+    - name: configurando o agent para encontrar o puppet server
+      command: /opt/puppetlabs/bin/puppet config set server puppetserver-01.devopslab.com.br
+    - name: Carregue o PATH do puppet para incluir os comandos do puppet com SHELL
+      shell: . /etc/profile.d/puppet-agent.sh
+    - name: iniciando o servico do puppet agent
+      service: 
+        name: puppet
+        state: started
+
+- hosts: agent		
+  tasks:       
+    - name: instalando o puppet agent
+      yum: name=puppet-agent state=latest    
+      environment:
+        https_proxy: http://tfsservice@infocgw.ogmaster.local:8080
+        http_proxy: http://tfsservice@infocgw.ogmaster.local:8080
+    - name: Carregue o PATH do puppet para incluir os comandos do puppet com ACTION     
+      action: shell source /etc/profile.d/puppet-agent.sh
+    - name: configurando o agent para encontrar o puppet server
+      command: 	
+    - name: iniciando o servico do puppet agent
+      service: 
+        name: puppet
+        state: started

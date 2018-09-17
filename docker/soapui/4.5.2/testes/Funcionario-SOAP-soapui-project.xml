@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="Funcionario-SOAP" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="FuncionarioPortTypeEndpoint1Binding" type="wsdl" bindingName="{http://infoglobo/schema/Funcionario}FuncionarioPortTypeEndpoint1Binding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/Mpmoraes/Desktop/Funcionario.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/Mpmoraes/Desktop/Funcionario.wsdl"><con:part><con:url>file:/C:/Users/Mpmoraes/Desktop/Funcionario.wsdl</con:url><con:content><![CDATA[<!--Created by TIBCO WSDL-->
+<wsdl:definitions name="Untitled" targetNamespace="http://infoglobo/schema/Funcionario" xmlns:ns2="http://infoglobo/corporativo/erros/ErroProvedor" xmlns:ns1="http://infoglobo/corporativo/erros/ErroInvokeProvedor" xmlns:ns4="http://infoglobo/corporativo/erros/ErroValidacaoResponse" xmlns:ns3="http://infoglobo/corporativo/erros/ErroValidacaoRequest" xmlns:tns="http://infoglobo/schema/Funcionario" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://infoglobo/corporativo/erros/ErroInesperado" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://infoglobo/corporativo/erros/ErroProvedor" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://infoglobo/corporativo/erros/ErroProvedor" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:complexType name="ErroProvedor">
+        <xsd:sequence>
+          <xsd:element name="motivo" type="xsd:string"/>
+          <xsd:element name="origem" type="xsd:string"/>
+          <xsd:element name="detalhe" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ErroProvedor" type="tns:ErroProvedor"/>
+    </xsd:schema>
+    <xsd:schema targetNamespace="http://infoglobo/corporativo/erros/ErroValidacaoResponse" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://infoglobo/corporativo/erros/ErroValidacaoResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:complexType name="ErroValidacaoResponse">
+        <xsd:sequence>
+          <xsd:element name="motivo" type="xsd:string"/>
+          <xsd:element name="origem" type="xsd:string"/>
+          <xsd:element name="detalhe" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ErroValidacaoResponse" type="tns:ErroValidacaoResponse"/>
+    </xsd:schema>
+    <xsd:schema targetNamespace="http://infoglobo/corporativo/erros/ErroInvokeProvedor" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://infoglobo/corporativo/erros/ErroInvokeProvedor" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:complexType name="ErroInvokeProvedor">
+        <xsd:sequence>
+          <xsd:element name="motivo" type="xsd:string"/>
+          <xsd:element name="origem" type="xsd:string"/>
+          <xsd:element name="detalhe" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ErroInvokeProvedor" type="tns:ErroInvokeProvedor"/>
+    </xsd:schema>
+    <xs:schema targetNamespace="http://infoglobo/schema/Funcionario" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="notificarAtualizadoRequest">
+        <xs:sequence>
+          <xs:element ref="tns:Header"/>
+          <xs:element name="Body">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Matricula">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Nome" type="xs:string" minOccurs="0"/>
+                <xs:element name="DataNascimento" type="xs:date" minOccurs="0"/>
+                <xs:element name="Email" type="xs:string" minOccurs="0"/>
+                <xs:element name="Endereco" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Cep" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Logradouro" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Rua" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Numero" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Complemento" type="xs:string" minOccurs="0"/>
+                      <xs:element name="PontoDeReferencia" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Bairro" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Cidade" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Estado" type="xs:string" minOccurs="0"/>
+                      <xs:element name="Pais" type="xs:string" minOccurs="0"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Cargo" type="xs:string" minOccurs="0"/>
+                <xs:element name="DescricaoCargo" type="xs:string" minOccurs="0"/>
+                <xs:element name="SubgrupoEmpregados" type="xs:string" minOccurs="0"/>
+                <xs:element name="NivelOrganizacional" type="xs:string" minOccurs="0"/>
+                <xs:element name="DataAdmissao" type="xs:date" minOccurs="0"/>
+                <xs:element name="DataDemissao" type="xs:date" minOccurs="0"/>
+                <xs:element name="SalarioContratual" type="xs:string" minOccurs="0"/>
+                <xs:element name="GradeSalarial" type="xs:string" minOccurs="0"/>
+                <xs:element name="FaixaSalarialMinima" type="xs:string" minOccurs="0"/>
+                <xs:element name="FaixaSalarialMedia" type="xs:string" minOccurs="0"/>
+                <xs:element name="FaixaSalarialMaxima" type="xs:string" minOccurs="0"/>
+                <xs:element name="PosicionamentoFaixa" type="xs:string" minOccurs="0"/>
+                <xs:element name="ComposicaoSalarial" type="xs:string" minOccurs="0"/>
+                <xs:element name="CodigoCentroCusto" type="xs:string" minOccurs="0"/>
+                <xs:element name="DescricaoCentroCusto" type="xs:string" minOccurs="0"/>
+                <xs:element name="ComissaoAlvo" type="xs:string" minOccurs="0"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="notificarAtualizadoResponse">
+        <xs:sequence>
+          <xs:element ref="tns:Header"/>
+          <xs:element name="Body">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Status" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="notificarNovoRequest">
+        <xs:sequence>
+          <xs:element ref="tns:Header"/>
+          <xs:element name="Body">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Matricula">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:minLength value="1"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Nome" type="xs:string"/>
+                <xs:element name="DataNascimento" type="xs:date"/>
+                <xs:element name="Email" type="xs:string"/>
+                <xs:element name="Endereco">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Cep" type="xs:string"/>
+                      <xs:element name="Logradouro" type="xs:string"/>
+                      <xs:element name="Rua" type="xs:string"/>
+                      <xs:element name="Numero" type="xs:string"/>
+                      <xs:element name="Complemento" type="xs:string"/>
+                      <xs:element name="PontoDeReferencia" type="xs:string"/>
+                      <xs:element name="Bairro" type="xs:string"/>
+                      <xs:element name="Cidade" type="xs:string"/>
+                      <xs:element name="Estado" type="xs:string"/>
+                      <xs:element name="Pais" type="xs:string"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Cargo" type="xs:string"/>
+                <xs:element name="DescricaoCargo" type="xs:string"/>
+                <xs:element name="SubgrupoEmpregados" type="xs:string"/>
+                <xs:element name="NivelOrganizacional" type="xs:string"/>
+                <xs:element name="DataAdmissao" type="xs:date"/>
+                <xs:element name="DataDemissao" type="xs:date" minOccurs="0"/>
+                <xs:element name="SalarioContratual" type="xs:string"/>
+                <xs:element name="GradeSalarial" type="xs:string"/>
+                <xs:element name="FaixaSalarialMinima" type="xs:string"/>
+                <xs:element name="FaixaSalarialMedia" type="xs:string"/>
+                <xs:element name="FaixaSalarialMaxima" type="xs:string"/>
+                <xs:element name="PosicionamentoFaixa" type="xs:string"/>
+                <xs:element name="ComposicaoSalarial" type="xs:string"/>
+                <xs:element name="CodigoCentroCusto" type="xs:string"/>
+                <xs:element name="DescricaoCentroCusto" type="xs:string"/>
+                <xs:element name="ComissaoAlvo" type="xs:string" minOccurs="0"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="notificarNovoResponse">
+        <xs:sequence>
+          <xs:element ref="tns:Header"/>
+          <xs:element name="Body">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Status" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="notificarAtualizadoRequest" type="tns:notificarAtualizadoRequest"/>
+      <xs:element name="notificarAtualizadoResponse" type="tns:notificarAtualizadoResponse"/>
+      <xs:element name="notificarNovoRequest" type="tns:notificarNovoRequest"/>
+      <xs:element name="notificarNovoResponse" type="tns:notificarNovoResponse"/>
+      <xs:element name="Header">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="RequestID" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>Identificador unico da mensagem. Cada consumidor e reponsavel pelo incremento do valor a cada envio</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Consumidor" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>Identificador unico do consumidor</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xsd:schema targetNamespace="http://infoglobo/corporativo/erros/ErroInesperado" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://infoglobo/corporativo/erros/ErroInesperado" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:complexType name="ErroInesperado">
+        <xsd:sequence>
+          <xsd:element name="motivo" type="xsd:string"/>
+          <xsd:element name="origem" type="xsd:string"/>
+          <xsd:element name="detalhe" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ErroInesperado" type="tns:ErroInesperado"/>
+    </xsd:schema>
+    <xsd:schema targetNamespace="http://infoglobo/corporativo/erros/ErroValidacaoRequest" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://infoglobo/corporativo/erros/ErroValidacaoRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:complexType name="ErroValidacaoRequest">
+        <xsd:sequence>
+          <xsd:element name="motivo" type="xsd:string"/>
+          <xsd:element name="origem" type="xsd:string"/>
+          <xsd:element name="detalhe" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ErroValidacaoRequest" type="tns:ErroValidacaoRequest"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:service name="Funcionario">
+    <wsdl:port name="FuncionarioPortTypeEndpoint1" binding="tns:FuncionarioPortTypeEndpoint1Binding">
+      <soap:address location="http://localhost:7064/Funcionario"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:portType name="FuncionarioPortType">
+    <wsdl:operation name="notificarAtualizado">
+      <wsdl:input message="tns:notificarAtualizadoRequest"/>
+      <wsdl:output message="tns:notificarAtualizadoResponse"/>
+      <wsdl:fault name="ErroInesperado" message="tns:ErroInesperado"/>
+      <wsdl:fault name="ErroInvokeProvedor" message="tns:ErroInvokeProvedor"/>
+      <wsdl:fault name="ErroProvedor" message="tns:ErroProvedor"/>
+      <wsdl:fault name="ErroValidacaoRequest" message="tns:ErroValidacaoRequest"/>
+      <wsdl:fault name="ErroValidacaoResponse" message="tns:ErroValidacaoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="notificarNovo">
+      <wsdl:input message="tns:notificarNovoRequest"/>
+      <wsdl:output message="tns:notificarNovoResponse"/>
+      <wsdl:fault name="ErroInesperado" message="tns:ErroInesperado"/>
+      <wsdl:fault name="ErroInvokeProvedor" message="tns:ErroInvokeProvedor"/>
+      <wsdl:fault name="ErroProvedor" message="tns:ErroProvedor"/>
+      <wsdl:fault name="ErroValidacaoRequest" message="tns:ErroValidacaoRequest"/>
+      <wsdl:fault name="ErroValidacaoResponse" message="tns:ErroValidacaoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FuncionarioPortTypeEndpoint1Binding" type="tns:FuncionarioPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="notificarAtualizado">
+      <soap:operation style="document" soapAction="/notificarAtualizado"/>
+      <wsdl:input>
+        <soap:body use="literal" parts="notificarAtualizadoRequest"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" parts="notificarAtualizadoResponse"/>
+      </wsdl:output>
+      <wsdl:fault name="ErroInesperado">
+        <soap:fault use="literal" name="ErroInesperado"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroInvokeProvedor">
+        <soap:fault use="literal" name="ErroInvokeProvedor"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroProvedor">
+        <soap:fault use="literal" name="ErroProvedor"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroValidacaoRequest">
+        <soap:fault use="literal" name="ErroValidacaoRequest"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroValidacaoResponse">
+        <soap:fault use="literal" name="ErroValidacaoResponse"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="notificarNovo">
+      <soap:operation style="document" soapAction="/notificarNovo"/>
+      <wsdl:input>
+        <soap:body use="literal" parts="notificarNovoRequest"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" parts="notificarNovoResponse"/>
+      </wsdl:output>
+      <wsdl:fault name="ErroInesperado">
+        <soap:fault use="literal" name="ErroInesperado"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroInvokeProvedor">
+        <soap:fault use="literal" name="ErroInvokeProvedor"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroProvedor">
+        <soap:fault use="literal" name="ErroProvedor"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroValidacaoRequest">
+        <soap:fault use="literal" name="ErroValidacaoRequest"/>
+      </wsdl:fault>
+      <wsdl:fault name="ErroValidacaoResponse">
+        <soap:fault use="literal" name="ErroValidacaoResponse"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:message name="notificarAtualizadoRequest">
+    <wsdl:part name="notificarAtualizadoRequest" element="tns:notificarAtualizadoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="notificarAtualizadoResponse">
+    <wsdl:part name="notificarAtualizadoResponse" element="tns:notificarAtualizadoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ErroInesperado">
+    <wsdl:documentation>Ocorreu um erro inesperado (diferente dos erros acima) que foi tratado de forma genérica pelo serviço.</wsdl:documentation>
+    <wsdl:part name="ErroInesperado" element="ns0:ErroInesperado"/>
+  </wsdl:message>
+  <wsdl:message name="ErroInvokeProvedor">
+    <wsdl:documentation>Ocorreu algum erro ao invocar um dos provedores.</wsdl:documentation>
+    <wsdl:part name="ErroInvokeProvedor" element="ns1:ErroInvokeProvedor"/>
+  </wsdl:message>
+  <wsdl:message name="ErroProvedor">
+    <wsdl:documentation>Um dos Provedores retornou uma resposta que não indica sucesso.</wsdl:documentation>
+    <wsdl:part name="ErroProvedor" element="ns2:ErroProvedor"/>
+  </wsdl:message>
+  <wsdl:message name="ErroValidacaoRequest">
+    <wsdl:documentation>A mensagem de requisição recebida pelo serviço foi identificada como sendo para o serviço em questão, mas possui um formato inválido que viola as regras definidas no XML Schema (XSD).</wsdl:documentation>
+    <wsdl:part name="ErroValidacaoRequest" element="ns3:ErroValidacaoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="ErroValidacaoResponse">
+    <wsdl:documentation>A mensagem de resposta retornada por um dos provedores não está de acordo com as regras definidas no XML Schema (XSD).</wsdl:documentation>
+    <wsdl:part name="ErroValidacaoResponse" element="ns4:ErroValidacaoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="notificarNovoRequest">
+    <wsdl:part name="notificarNovoRequest" element="tns:notificarNovoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="notificarNovoResponse">
+    <wsdl:part name="notificarNovoResponse" element="tns:notificarNovoResponse"/>
+  </wsdl:message>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:7064/Funcionario</con:endpoint><con:endpoint>http://infotibcoqlt2:7064/Funcionario</con:endpoint><con:endpoint>http://apiqlt/Funcionario</con:endpoint></con:endpoints><con:operation isOneWay="false" action="/notificarAtualizado" name="notificarAtualizado" bindingOperationName="notificarAtualizado" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://infotibcoqlt2:7064/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarAtualizadoRequest>
+         <fun:Header>
+            <fun:RequestID>TesteSoapUI2</fun:RequestID>
+            <fun:Consumidor>TesteSoapUI</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:Matricula>021445</fun:Matricula>
+            <fun:Nome>Paulo</fun:Nome>
+            <fun:DataNascimento>1988-10-11</fun:DataNascimento>
+            <fun:Email>mpaulo_7@hotmail.com</fun:Email>
+            <fun:Endereco>
+               <fun:Cep>20230261</fun:Cep>
+               <fun:Logradouro>Centro</fun:Logradouro>
+               <fun:Rua>Rua de Santana</fun:Rua>
+               <fun:Numero>11</fun:Numero>
+               <fun:Complemento>Apto 77777</fun:Complemento>
+               <fun:PontoDeReferencia>Em frente ao Extra</fun:PontoDeReferencia>
+               <fun:Bairro>Centro</fun:Bairro>
+               <fun:Cidade>Rio de Janeiro</fun:Cidade>
+               <fun:Estado>RJ</fun:Estado>
+               <fun:Pais>Brasil</fun:Pais>
+            </fun:Endereco>
+            <fun:Cargo>Analista Jr</fun:Cargo>
+            <fun:DescricaoCargo>DescricaoCargo</fun:DescricaoCargo>
+            <fun:SubgrupoEmpregados>SubgrupoEmpregados</fun:SubgrupoEmpregados>
+            <fun:NivelOrganizacional>NivelOrganizacional</fun:NivelOrganizacional>
+            <fun:DataAdmissao>2013-02-04</fun:DataAdmissao>
+            <fun:DataDemissao>2012-01-31</fun:DataDemissao>
+            <fun:SalarioContratual>1000</fun:SalarioContratual>
+            <fun:GradeSalarial>1001</fun:GradeSalarial>
+            <fun:FaixaSalarialMinima>1002</fun:FaixaSalarialMinima>
+            <fun:FaixaSalarialMedia>1003</fun:FaixaSalarialMedia>
+            <fun:FaixaSalarialMaxima>1004</fun:FaixaSalarialMaxima>
+            <fun:PosicionamentoFaixa>PosicionamentoFaixa</fun:PosicionamentoFaixa>
+            <fun:ComposicaoSalarial>ComposicaoSalarial</fun:ComposicaoSalarial>
+            <fun:CodigoCentroCusto>CodigoCentroCusto</fun:CodigoCentroCusto>
+            <fun:DescricaoCentroCusto>DescricaoCentroCusto</fun:DescricaoCentroCusto>
+            <!--Optional:-->
+            <fun:ComissaoAlvo>ComissaoAlvo</fun:ComissaoAlvo>
+		</fun:Body>
+      </fun:notificarAtualizadoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarAtualizado"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://infotibcoqlt2:7064/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarAtualizadoRequest>
+         <fun:Header>
+            <fun:RequestID>TesteSoapUI2</fun:RequestID>
+            <fun:Consumidor>TesteSoapUI</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:Matricula>021445</fun:Matricula>
+            <fun:Nome>Paulo</fun:Nome>
+            <fun:DataNascimento>1988-10-11</fun:DataNascimento>
+            <fun:Email>mpaulo_7@hotmail.com</fun:Email>
+            <fun:Cargo>Analista Jr</fun:Cargo>
+            <fun:DataAdmissao>2013-02-04</fun:DataAdmissao>
+            <fun:DataDemissao>2013-02-04</fun:DataDemissao>
+            <fun:SalarioContratual>1000</fun:SalarioContratual>
+            <fun:GradeSalarial>1001</fun:GradeSalarial>
+            <fun:FaixaSalarialMinima>1002</fun:FaixaSalarialMinima>
+            <fun:FaixaSalarialMedia>1003</fun:FaixaSalarialMedia>
+            <fun:FaixaSalarialMaxima>1004</fun:FaixaSalarialMaxima>
+            <fun:PosicionamentoFaixa>PosicionamentoFaixa</fun:PosicionamentoFaixa>
+            <fun:ComposicaoSalarial>ComposicaoSalarial</fun:ComposicaoSalarial>
+		</fun:Body>
+      </fun:notificarAtualizadoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarAtualizado"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://apiqlt/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarAtualizadoRequest>
+         <fun:Header>
+            <fun:RequestID>TesteSoapUI1</fun:RequestID>
+            <fun:Consumidor>TesteSoapUI</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:Matricula>24457</fun:Matricula>
+            <fun:Nome>Marcos</fun:Nome>
+            <fun:DataNascimento>1988-10-11</fun:DataNascimento>
+            <fun:Email>teste.func@infoglobo.com.br</fun:Email>
+            <fun:Endereco>
+               <fun:Cep>cep</fun:Cep>
+               <fun:Logradouro>logradouro</fun:Logradouro>
+               <fun:Rua>rua</fun:Rua>
+               <fun:Numero>11</fun:Numero>
+               <fun:Complemento>complemento</fun:Complemento>
+               <fun:PontoDeReferencia>pontoDeRef</fun:PontoDeReferencia>
+               <fun:Bairro>Bairro</fun:Bairro>
+               <fun:Cidade>cidade</fun:Cidade>
+               <fun:Estado>estado</fun:Estado>
+               <fun:Pais>pais</fun:Pais>
+            </fun:Endereco>
+            <fun:Cargo>cargo</fun:Cargo>
+            <fun:DescricaoCargo>Descricaocargo</fun:DescricaoCargo>
+            <fun:SubgrupoEmpregados>subem</fun:SubgrupoEmpregados>
+            <fun:NivelOrganizacional>Nivel</fun:NivelOrganizacional>
+            <fun:DataAdmissao>2013-02-04</fun:DataAdmissao>
+            <fun:DataDemissao>2013-01-31</fun:DataDemissao>
+            <fun:SalarioContratual>1000</fun:SalarioContratual>
+            <fun:GradeSalarial>1001</fun:GradeSalarial>
+            <fun:FaixaSalarialMinima>1002</fun:FaixaSalarialMinima>
+            <fun:FaixaSalarialMedia>1003</fun:FaixaSalarialMedia>
+            <fun:FaixaSalarialMaxima>1004</fun:FaixaSalarialMaxima>
+            <fun:PosicionamentoFaixa>PosicionamentoFaixa</fun:PosicionamentoFaixa>
+            <fun:ComposicaoSalarial>ComposicaoSalarial</fun:ComposicaoSalarial>
+            <fun:CodigoCentroCusto>CodigoCentroCusto</fun:CodigoCentroCusto>
+            <fun:DescricaoCentroCusto>DescricaoCentroCusto</fun:DescricaoCentroCusto>
+            <fun:ComissaoAlvo>ComissaoAlvo</fun:ComissaoAlvo>
+         </fun:Body>
+      </fun:notificarAtualizadoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarAtualizado"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="/notificarNovo" name="notificarNovo" bindingOperationName="notificarNovo" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://infotibcoqlt2:7064/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarNovoRequest>
+         <fun:Header>
+            <fun:RequestID>TesteSoapUI1</fun:RequestID>
+            <fun:Consumidor>TesteSoapUI1</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:Matricula>021445</fun:Matricula>
+            <fun:Nome>Marcos Paulo</fun:Nome>
+            <fun:DataNascimento>1988-10-11</fun:DataNascimento>
+            <fun:Email>mpaulo_7@hotmail.com</fun:Email>
+            <fun:Endereco>
+               <fun:Cep>20230261</fun:Cep>
+               <fun:Logradouro>Centro</fun:Logradouro>
+               <fun:Rua>Rua de Santana</fun:Rua>
+               <fun:Numero>11</fun:Numero>
+               <fun:Complemento>Apto 77777</fun:Complemento>
+               <fun:PontoDeReferencia>Em frente ao Extra</fun:PontoDeReferencia>
+               <fun:Bairro>Centro</fun:Bairro>
+               <fun:Cidade>Rio de Janeiro</fun:Cidade>
+               <fun:Estado>RJ</fun:Estado>
+               <fun:Pais>Brasil</fun:Pais>
+            </fun:Endereco>
+            <fun:Cargo>Analista Jr</fun:Cargo>
+            <fun:DescricaoCargo>DescricaoCargo</fun:DescricaoCargo>
+            <fun:SubgrupoEmpregados>SubgrupoEmpregados</fun:SubgrupoEmpregados>
+            <fun:NivelOrganizacional>NivelOrganizacional</fun:NivelOrganizacional>
+            <fun:DataAdmissao>2013-02-04</fun:DataAdmissao>
+          
+            <fun:SalarioContratual>1000</fun:SalarioContratual>
+            <fun:GradeSalarial>1001</fun:GradeSalarial>
+            <fun:FaixaSalarialMinima>1002</fun:FaixaSalarialMinima>
+            <fun:FaixaSalarialMedia>1003</fun:FaixaSalarialMedia>
+            <fun:FaixaSalarialMaxima>1004</fun:FaixaSalarialMaxima>
+            <fun:PosicionamentoFaixa>PosicionamentoFaixa</fun:PosicionamentoFaixa>
+            <fun:ComposicaoSalarial>ComposicaoSalarial</fun:ComposicaoSalarial>
+            <fun:CodigoCentroCusto>CodigoCentroCusto</fun:CodigoCentroCusto>
+            <fun:DescricaoCentroCusto>DescricaoCentroCusto</fun:DescricaoCentroCusto>
+            <!--Optional:-->
+            <fun:ComissaoAlvo>ComissaoAlvo</fun:ComissaoAlvo>
+         </fun:Body>
+      </fun:notificarNovoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarNovo"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="NotificarAtualizado"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NotificarAtualizado" searchProperties="true" id="838c78bc-c4bf-48d4-98b3-5c08e8a29f27"><con:settings/><con:testStep type="request" name="[Sucesso] - Notificar funcionário atualizado com sucesso"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FuncionarioPortTypeEndpoint1Binding</con:interface><con:operation>notificarAtualizado</con:operation><con:request name="[Sucesso] - Notificar funcionário atualizado com sucesso" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://apiqlt/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarAtualizadoRequest>
+         <fun:Header>
+            <fun:RequestID>345</fun:RequestID>
+            <fun:Consumidor>Teste</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:Matricula>0000001</fun:Matricula>
+            <fun:Nome>Roberto Marinho</fun:Nome>
+            <fun:Cargo>Dono</fun:Cargo>
+
+            <fun:DataAdmissao>1950-01-02</fun:DataAdmissao>
+            
+
+            <fun:SalarioContratual>99999999</fun:SalarioContratual>
+
+            <fun:CodigoCentroCusto>10</fun:CodigoCentroCusto>
+
+            <fun:DescricaoCentroCusto>Lucro</fun:DescricaoCentroCusto>
+
+            <fun:ComissaoAlvo>99999</fun:ComissaoAlvo>
+         </fun:Body>
+      </fun:notificarAtualizadoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="Simple Contains" name="Contains - Status"><con:configuration><token>OK</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarAtualizado"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="[Exceção] - Mensagem inválida" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FuncionarioPortTypeEndpoint1Binding</con:interface><con:operation>notificarAtualizado</con:operation><con:request name="[Exceção] - Mensagem inválida" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://apiqlt/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarAtualizadoRequest>
+         <fun:Header>
+            <fun:RequestID>345</fun:RequestID>
+            <fun:Consumidor>Teste</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:ComissaoAlvo>99999</fun:ComissaoAlvo>
+         </fun:Body>
+      </fun:notificarAtualizadoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="Simple Contains" name="Contains - Motivo"><con:configuration><token>A mensagem não está no formato correto!</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarAtualizado"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="Stress"><con:settings/><con:threadCount>1</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>3600</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>2500</testDelay><randomFactor>0.5</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="NotificarNovo"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NotificarNovo" searchProperties="true" id="81428912-ec79-424b-bfb9-4aa63e3946c2"><con:settings/><con:testStep type="request" name="[Sucesso] - Notificar funcionário novo com sucesso"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FuncionarioPortTypeEndpoint1Binding</con:interface><con:operation>notificarNovo</con:operation><con:request name="[Sucesso] - Notificar funcionário novo com sucesso" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://apiqlt/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarNovoRequest>
+         <fun:Header>
+            <fun:RequestID>TesteSoapUI1</fun:RequestID>
+            <fun:Consumidor>TesteSoapUI1</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:Matricula>021445</fun:Matricula>
+            <fun:Nome>Marcos Paulo</fun:Nome>
+            <fun:DataNascimento>1988-10-11</fun:DataNascimento>
+            <fun:Email>mpaulo_7@hotmail.com</fun:Email>
+            <fun:Endereco>
+               <fun:Cep>20230261</fun:Cep>
+               <fun:Logradouro>Centro</fun:Logradouro>
+               <fun:Rua>Rua de Santana</fun:Rua>
+               <fun:Numero>11</fun:Numero>
+               <fun:Complemento>Apto 77777</fun:Complemento>
+               <fun:PontoDeReferencia>Em frente ao Extra</fun:PontoDeReferencia>
+               <fun:Bairro>Centro</fun:Bairro>
+               <fun:Cidade>Rio de Janeiro</fun:Cidade>
+               <fun:Estado>RJ</fun:Estado>
+               <fun:Pais>Brasil</fun:Pais>
+            </fun:Endereco>
+            <fun:Cargo>Analista Jr</fun:Cargo>
+            <fun:DescricaoCargo>DescricaoCargo</fun:DescricaoCargo>
+            <fun:SubgrupoEmpregados>SubgrupoEmpregados</fun:SubgrupoEmpregados>
+            <fun:NivelOrganizacional>NivelOrganizacional</fun:NivelOrganizacional>
+            <fun:DataAdmissao>2013-02-04</fun:DataAdmissao>
+          
+            <fun:SalarioContratual>1000</fun:SalarioContratual>
+            <fun:GradeSalarial>1001</fun:GradeSalarial>
+            <fun:FaixaSalarialMinima>1002</fun:FaixaSalarialMinima>
+            <fun:FaixaSalarialMedia>1003</fun:FaixaSalarialMedia>
+            <fun:FaixaSalarialMaxima>1004</fun:FaixaSalarialMaxima>
+            <fun:PosicionamentoFaixa>PosicionamentoFaixa</fun:PosicionamentoFaixa>
+            <fun:ComposicaoSalarial>ComposicaoSalarial</fun:ComposicaoSalarial>
+            <fun:CodigoCentroCusto>CodigoCentroCusto</fun:CodigoCentroCusto>
+            <fun:DescricaoCentroCusto>DescricaoCentroCusto</fun:DescricaoCentroCusto>
+            <!--Optional:-->
+            <fun:ComissaoAlvo>ComissaoAlvo</fun:ComissaoAlvo>
+         </fun:Body>
+      </fun:notificarNovoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="Simple Contains" name="Contains - Status"><con:configuration><token>OK</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarNovo"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="[Exceção] - Mensagem inválida" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FuncionarioPortTypeEndpoint1Binding</con:interface><con:operation>notificarNovo</con:operation><con:request name="[Exceção] - Mensagem inválida" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://apiqlt/Funcionario</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fun="http://infoglobo/schema/Funcionario">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fun:notificarNovoRequest>
+         <fun:Header>
+            <fun:RequestID>123</fun:RequestID>
+            <fun:Consumidor>Teste</fun:Consumidor>
+         </fun:Header>
+         <fun:Body>
+            <fun:SalarioFixo>6000</fun:SalarioFixo>
+            <fun:CodigoCentroCusto>6565</fun:CodigoCentroCusto>
+            <fun:DescricaoCentroCusto>Centro de pagamentos</fun:DescricaoCentroCusto>
+            <fun:ComissaoAlvo>1500</fun:ComissaoAlvo>
+         </fun:Body>
+      </fun:notificarNovoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="Simple Contains" name="Contains - Motivo"><con:configuration><token>A mensagem não está no formato correto!</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="/notificarNovo"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="Stress"><con:settings/><con:threadCount>10</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>10</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Thread</con:type><con:config><startThreadCount>1</startThreadCount><endThreadCount>10</endThreadCount></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
